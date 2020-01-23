@@ -56,9 +56,15 @@ function update(changes, id) {
 
 // works
 function remove(id) {
-    return db('schemes')
-            .where('id', id)
-            .del()
+    return findById(id)
+            .then(item => {
+                return db('schemes')
+                        .where('id', id)
+                        .del()
+                        .then(x => {
+                            return item
+                        })
+            })
 }
 
 
